@@ -2,7 +2,7 @@
 
 A pure spinel-Ruby PostgreSQL client — protocol v3, simple and extended
 query, text results — over spinel's `sp_net` sockets. Sibling of
-[spinel-redis](https://github.com/rubys/spinel-redis), same
+[spinel-redis](https://github.com/roundhouse-rb/spinel-redis), same
 architecture end to end: pure wire functions, a `try_next`/ivar
 incremental parser, a client core over an injected transport duck
 (dual-runtime testable), and a thin `sp_net` transport.
