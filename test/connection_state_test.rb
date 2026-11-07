@@ -128,3 +128,12 @@ c.close
 c.close
 state_check("close_once", t.writes == writes + 1 && t.closes == 1)
 state_check("closed_refuses", state_error(c) == "pg: connection is closed")
+
+c = state_client(StateTransport.new([startup]))
+sqlstate = "unset"
+begin
+  c.exec("SELECT 1")
+rescue PG::Error => e
+  sqlstate = e.result.error_field(PG::PG_DIAG_SQLSTATE).to_s
+end
+state_check("lost_result", sqlstate == "")

@@ -114,7 +114,7 @@ class PgClientCore
       chunk = @t.read_some(65536)
       if chunk.bytesize == 0
         lost!
-        raise PG::ConnectionBad.new("pg: connection lost", nil)
+        raise PG::ConnectionBad.new("pg: connection lost", PgErrorResult.new(""))
       end
       @parser.feed(chunk)
     end
@@ -122,11 +122,11 @@ class PgClientCore
 
   def write(data)
     if @lost
-      raise PG::ConnectionBad.new("pg: connection is closed", nil)
+      raise PG::ConnectionBad.new("pg: connection is closed", PgErrorResult.new(""))
     end
     if @t.write(data) < 0
       lost!
-      raise PG::ConnectionBad.new("pg: connection lost", nil)
+      raise PG::ConnectionBad.new("pg: connection lost", PgErrorResult.new(""))
     end
   end
 

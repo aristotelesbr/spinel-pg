@@ -7,7 +7,7 @@ class PgTransport
   def initialize(host, port)
     @fd = PgSock.sp_net_connect(host, port)
     if @fd < 0
-      raise PG::ConnectionBad.new("pg: cannot connect to " + host + ":" + port.to_s, nil)
+      raise PG::ConnectionBad.new("pg: cannot connect to " + host + ":" + port.to_s, PgErrorResult.new(""))
     end
   end
 
